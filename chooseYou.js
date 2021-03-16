@@ -1,5 +1,5 @@
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
-const whichOne = getRandomInt(151);
+const whichOne = getRandomInt(898);
 const picture = document.createElement('img');
 
 const div = document.querySelector("div");
