@@ -2,11 +2,11 @@ const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprite
 const pokemon = getRandomInt(898);
 const picture = document.createElement('img');
 
-const div = document.querySelector("div");
-const p = document.querySelectorAll("p");
+const div = document.querySelector('div');
+const p = document.querySelectorAll('p');
 
 const moveSet = document.createElement('span');
-//const talent = getRandomInt(267);
+const button = document.querySelectorAll('button');
 const moveOne = getRandomInt(830);
 const moveTwo = getRandomInt(830);
 const moveThree = getRandomInt(830);
@@ -27,21 +27,38 @@ div.prepend(picture);
 
 
 
-fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-.then(res => {
-    
-    return res.json()
-})
-.then(data => {
-    console.log("now the data", data);
-    console.log(data.abilities[0].ability.name);
-    const talent = data.abilities[0].ability.name;
-    console.log(talent);
-    const updateTalent = document.createElement("span");
-    p[0].appendChild(updateTalent);
-    updateTalent.innerText = talent;
-})
-.catch(e =>{
-    console.log(e)
+
+button[1].addEventListener('click', function(){
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+    .then(res => {
+        
+        return res.json()
+    })
+    .then(data => {
+        const talent = data.abilities[getRandomInt(3)-1].ability.name;
+        const updateTalent = document.createElement("span");
+        p[0].appendChild(updateTalent);
+        updateTalent.innerText = talent;
+    })
+    .catch(e =>{
+        console.log(e)
+    })
 })
 
+button[0].addEventListener('click', function(){
+    fetch(`https://pokeapi.co/api/v2/ability?offset=0&limit=327`)
+    .then(res => {
+        
+        return res.json()
+    })
+    .then(data => {
+        const talentNumber = getRandomInt(328)-1;
+        const talent = data.results[talentNumber].name;
+        const updateTalent = document.createElement("span");
+        p[0].appendChild(updateTalent);
+        updateTalent.innerText = talent;
+    })
+    .catch(e =>{
+        console.log(e)
+    })
+})
