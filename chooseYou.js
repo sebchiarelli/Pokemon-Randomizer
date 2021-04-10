@@ -1,21 +1,18 @@
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 const pokemon = getRandomInt(898);
 const picture = document.createElement('img');
-
 const div = document.querySelector('div');
 const p = document.querySelectorAll('p');
-
 const moveSet = document.createElement('span');
 const button = document.querySelectorAll('button');
+/*
 const moveOne = getRandomInt(830);
 const moveTwo = getRandomInt(830);
 const moveThree = getRandomInt(830);
 const moveFour = getRandomInt(830);
 const moveStab = getRandomInt(191);
 const shiny = getRandomInt(259);
-//const updateTalent = () => {document.createElement("p");}
-
-
+*/
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max))+1;
@@ -23,9 +20,6 @@ function getRandomInt(max) {
 
 picture.src = `${baseURL}${pokemon}.png`;
 div.prepend(picture);
-
-
-
 
 
 button[1].addEventListener('click', function(){
