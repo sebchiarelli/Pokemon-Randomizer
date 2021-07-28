@@ -68,7 +68,7 @@ button[2].addEventListener('click', function(){
         const attack = data.results[attackNumber].name;
         const updateAttack = document.createElement("span");
         p[1].appendChild(updateAttack);
-            updateAttack.innerText = attack . " ";
+            updateAttack.innerText = attack + " ";
     })
     .catch(e =>{
         console.log(e)
