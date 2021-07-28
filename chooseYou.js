@@ -6,10 +6,10 @@ const p = document.querySelectorAll('p');
 const moveSet = document.createElement('span');
 const button = document.querySelectorAll('button');
 /*
-const moveOne = getRandomInt(830);
-const moveTwo = getRandomInt(830);
-const moveThree = getRandomInt(830);
-const moveFour = getRandomInt(830);
+const moveOne = getRandomInt(826);
+const moveTwo = getRandomInt(826);
+const moveThree = getRandomInt(826);
+const moveFour = getRandomInt(826);
 const moveStab = getRandomInt(191);
 const shiny = getRandomInt(259);
 */
@@ -51,6 +51,24 @@ button[0].addEventListener('click', function(){
         const updateTalent = document.createElement("span");
         p[0].appendChild(updateTalent);
         updateTalent.innerText = talent;
+    })
+    .catch(e =>{
+        console.log(e)
+    })
+})
+
+button[2].addEventListener('click', function(){
+    fetch(`https://pokeapi.co/api/v2/move?offset=0&limit=826`)
+    .then(res => {
+        
+        return res.json()
+    })
+    .then(data => {
+        const attackNumber = getRandomInt(826)-1;
+        const attack = data.results[attackNumber].name;
+        const updateAttack = document.createElement("span");
+        p[1].appendChild(updateAttack);
+            updateAttack.innerText = attack;
     })
     .catch(e =>{
         console.log(e)
