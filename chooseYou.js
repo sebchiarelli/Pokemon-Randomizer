@@ -14,9 +14,9 @@ const moveFour = getRandomInt(826);
 const moveStab = getRandomInt(191);
 const shiny = getRandomInt(259);
 */
-const pokemonName = fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
+const pokemonName = fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonNumber}`)
 .then(res => {return res.json()})
-.then(data => {createSpan.innerHTML = data.forms[0].name.toUpperCase();})
+.then(data => {createSpan.innerHTML = data.names[4].name.toUpperCase();})
 .catch(e =>{console.log(e)});
 
 function getRandomInt(max) {
