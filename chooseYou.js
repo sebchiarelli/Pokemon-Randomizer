@@ -1,11 +1,12 @@
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
-const pokemon = getRandomInt(898);
+const pokemonNumber = getRandomInt(898);
 const picture = document.createElement('img');
+const createSpan = document.createElement('span');
 const div = document.querySelector('div');
 const p = document.querySelectorAll('p');
-const moveSet = document.createElement('span');
 const button = document.querySelectorAll('button');
 /*
+const moveSet = document.createElement('span');
 const moveOne = getRandomInt(826);
 const moveTwo = getRandomInt(826);
 const moveThree = getRandomInt(826);
@@ -13,17 +14,23 @@ const moveFour = getRandomInt(826);
 const moveStab = getRandomInt(191);
 const shiny = getRandomInt(259);
 */
+const pokemonName = fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
+.then(res => {return res.json()})
+.then(data => {createSpan.innerHTML = data.forms[0].name.toUpperCase();})
+.catch(e =>{console.log(e)});
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max))+1;
-}
+};
 
-picture.src = `${baseURL}${pokemon}.png`;
+div.prepend(createSpan);
+picture.src = `${baseURL}${pokemonNumber}.png`;
 div.prepend(picture);
 
 
+
 button[1].addEventListener('click', function(){
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
     .then(res => {
         
         return res.json()
