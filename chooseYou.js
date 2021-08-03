@@ -58,10 +58,36 @@ button[1].addEventListener('click', function(){
         return res.json()
     })
     .then(data => {
-        const talent = data.abilities[getRandomInt(3)-1].ability.name;
-        const updateTalent = document.createElement("span");
-        p[0].appendChild(updateTalent);
-        updateTalent.innerText = talent;
+        
+        let talentNumber = getRandomInt(4)-1;
+        
+        do{
+            if(data.abilities[talentNumber]);
+            else{talentNumber--}
+        } while (data.abilities[talentNumber] === undefined);
+
+        let talent = data.abilities[talentNumber].ability.name;
+
+        fetch(`https://pokeapi.co/api/v2/ability/${talent}/`)
+        .then(res => {
+        
+        return res.json()
+        })
+        .then(data => {
+            langueFr(data);
+            
+            talent = data.names[langue].name;
+            const updateTalent = document.createElement("a");
+            updateTalent.target = "_blank";
+            updateTalent.href = `https://www.pokepedia.fr/${talent}`;
+            p[0].appendChild(updateTalent);
+            updateTalent.innerText = talent + " ";
+        })
+        .catch(e =>{
+        console.log(e)
+        })
+        
+        
     })
     .catch(e =>{
         console.log(e)
@@ -95,9 +121,6 @@ button[0].addEventListener('click', function(){
         .catch(e =>{
         console.log(e)
         })
-        
-        //const talent = data.results[talentNumber].name;
-       
     })
     .catch(e =>{
         console.log(e)
