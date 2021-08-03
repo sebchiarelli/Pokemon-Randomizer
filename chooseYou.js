@@ -80,8 +80,9 @@ button[1].addEventListener('click', function(){
             const updateTalent = document.createElement("a");
             updateTalent.target = "_blank";
             updateTalent.href = `https://www.pokepedia.fr/${talent}`;
+            updateTalent.classList.add("noDecoration")
             p[0].appendChild(updateTalent);
-            updateTalent.innerText = talent + " ";
+            updateTalent.innerText = talent + ", ";
         })
         .catch(e =>{
         console.log(e)
@@ -115,8 +116,9 @@ button[0].addEventListener('click', function(){
             const updateTalent = document.createElement("a");
             updateTalent.target = "_blank";
             updateTalent.href = `https://www.pokepedia.fr/${talent}`;
+            updateTalent.classList.add("noDecoration")
             p[0].appendChild(updateTalent);
-            updateTalent.innerText = talent + " ";
+            updateTalent.innerText = talent + ", ";
         })
         .catch(e =>{
         console.log(e)
@@ -135,10 +137,24 @@ button[2].addEventListener('click', function(){
     })
     .then(data => {
         const attackNumber = getRandomInt(826)-1;
-        const attack = data.results[attackNumber].name;
-        const updateAttack = document.createElement("span");
-        p[1].appendChild(updateAttack);
-            updateAttack.innerText = attack + " ";
+        fetch(`https://pokeapi.co/api/v2/move/${attackNumber}/`)
+        .then(res => {
+        
+        return res.json()
+        })
+        .then(data => {
+            langueFr(data);
+            const attack = data.names[langue].name;;
+            const updateAttack = document.createElement("a");
+            updateAttack.target = "_blank";
+            updateAttack.href = `https://www.pokepedia.fr/${attack}`;
+            updateAttack.classList.add("noDecoration")
+            p[1].appendChild(updateAttack);
+            updateAttack.innerText = attack + ", ";
+        })
+        .catch(e =>{
+        console.log(e)
+        })
     })
     .catch(e =>{
         console.log(e)
