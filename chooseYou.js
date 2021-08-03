@@ -9,9 +9,13 @@ const button = document.querySelectorAll('button');
 let langue = 0;
 let langueFound = false;
 
+//randomising a number between 1 and max
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max))+1;
 };
+
+// localising the french translation in the JSON
 
 function langueFr(data){
     langue = 0;
@@ -21,15 +25,6 @@ function langueFr(data){
         else{langue++; }
     } while (langueFound === false);
 } 
-/*
-const moveSet = document.createElement('span');
-const moveOne = getRandomInt(826);
-const moveTwo = getRandomInt(826);
-const moveThree = getRandomInt(826);
-const moveFour = getRandomInt(826);
-const moveStab = getRandomInt(191);
-const shiny = getRandomInt(259);
-*/
 
 //Name of the random pokemon in french
 const pokemonName = fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonNumber}`)
@@ -50,6 +45,45 @@ picture.classList.add("pic");
 div.prepend(picture);
 
 
+
+//Randomising the ability of the choosen pokemon in french among all abilities
+
+button[0].addEventListener('click', function(){
+    fetch(`https://pokeapi.co/api/v2/ability?offset=0&limit=267`)
+    .then(res => {
+        
+        return res.json()
+    })
+    .then(data => {
+        const talentNumber = getRandomInt(267)-1;
+        
+        fetch(`https://pokeapi.co/api/v2/ability/${talentNumber}/`)
+        .then(res => {
+        
+        return res.json()
+        })
+        .then(data => {
+            
+            langueFr(data);
+            const talent = data.names[langue].name;
+            const updateTalent = document.createElement("a");
+            updateTalent.target = "_blank";
+            updateTalent.href = `https://www.pokepedia.fr/${talent}`;
+            updateTalent.classList.add("noDecoration")
+            p[0].appendChild(updateTalent);
+            updateTalent.innerText = talent + ", ";
+        })
+        .catch(e =>{
+        console.log(e)
+        })
+    })
+    .catch(e =>{
+        console.log(e)
+    })
+})
+
+
+//Randomising the ability of the choosen pokemon in french among the natural abilities of the pokemon
 
 button[1].addEventListener('click', function(){
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
@@ -95,39 +129,7 @@ button[1].addEventListener('click', function(){
     })
 })
 
-button[0].addEventListener('click', function(){
-    fetch(`https://pokeapi.co/api/v2/ability?offset=0&limit=267`)
-    .then(res => {
-        
-        return res.json()
-    })
-    .then(data => {
-        const talentNumber = getRandomInt(267)-1;
-        
-        fetch(`https://pokeapi.co/api/v2/ability/${talentNumber}/`)
-        .then(res => {
-        
-        return res.json()
-        })
-        .then(data => {
-            
-            langueFr(data);
-            const talent = data.names[langue].name;
-            const updateTalent = document.createElement("a");
-            updateTalent.target = "_blank";
-            updateTalent.href = `https://www.pokepedia.fr/${talent}`;
-            updateTalent.classList.add("noDecoration")
-            p[0].appendChild(updateTalent);
-            updateTalent.innerText = talent + ", ";
-        })
-        .catch(e =>{
-        console.log(e)
-        })
-    })
-    .catch(e =>{
-        console.log(e)
-    })
-})
+// choosing attacks among all attacks randomly
 
 button[2].addEventListener('click', function(){
     fetch(`https://pokeapi.co/api/v2/move?offset=0&limit=826`)
