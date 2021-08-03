@@ -1,6 +1,11 @@
 body{
     background-color: lightgreen;
 }
+.noDecoration{
+    color: rgb(109, 2, 109);
+    text-decoration: none;
+}
+
 /*.pic{
     
 }
