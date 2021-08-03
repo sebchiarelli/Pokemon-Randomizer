@@ -1,3 +1,10 @@
 body{
     background-color: lightgreen;
 }
+.pic{
+    
+}
+.container{
+    display: flex;
+    justify-content: center;
+}
