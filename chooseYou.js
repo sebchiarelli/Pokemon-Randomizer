@@ -43,7 +43,7 @@ div.prepend(createA);
 fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
 .then(res => {return res.json()})
 .then(data => {
-    type = data.types[0].type.name;
+    type1 = data.types[0].type.name;
     type2 = data.types[1].type.name;
 })
 .catch(e =>{console.log(e)})
@@ -171,7 +171,40 @@ button[2].addEventListener('click', function(){
 });
 
 button[3].addEventListener('click', function(){
-    fetch(`https://pokeapi.co/api/v2/type/${type}`)
+    if(getRandomInt(2) === 1){
+        fetch(`https://pokeapi.co/api/v2/type/${type1}`)
+        .then(res => {
+            
+            return res.json()
+        })
+        .then(data => {
+            const attackNumber = getRandomInt(data.moves.length)-1;
+            const attackName = data.moves[attackNumber].name;
+            fetch(`https://pokeapi.co/api/v2/move/${attackName}/`)
+            .then(res => {
+            
+            return res.json()
+            })
+            .then(data => {
+            
+                langueFr(data);
+                const attack = data.names[langue].name;;
+                const updateAttack = document.createElement("a");
+                updateAttack.target = "_blank";
+                updateAttack.href = `https://www.pokepedia.fr/${attack}`;
+                updateAttack.classList.add("noDecoration")
+                p[2].appendChild(updateAttack);
+                updateAttack.innerText = attack + ", ";
+            })
+            .catch(e =>{
+            console.log(e)
+            })
+        })
+        .catch(e =>{
+            console.log(e)
+        })
+    }
+    else{fetch(`https://pokeapi.co/api/v2/type/${type2}`)
     .then(res => {
         
         return res.json()
@@ -185,7 +218,7 @@ button[3].addEventListener('click', function(){
         return res.json()
         })
         .then(data => {
-           
+        
             langueFr(data);
             const attack = data.names[langue].name;;
             const updateAttack = document.createElement("a");
@@ -202,4 +235,6 @@ button[3].addEventListener('click', function(){
     .catch(e =>{
         console.log(e)
     })
+
+    }
 })
