@@ -5,7 +5,8 @@ const createA = document.createElement('a');
 const div = document.querySelector('div');
 const p = document.querySelectorAll('p');
 const button = document.querySelectorAll('button');
-
+let type;
+let type2;
 let langue = 0;
 let langueFound = false;
 
@@ -39,7 +40,13 @@ const pokemonName = fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonNu
 
 div.prepend(createA);
 
-
+fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
+.then(res => {return res.json()})
+.then(data => {
+    type = data.types[0].type.name;
+    type2 = data.types[1].type.name;
+})
+.catch(e =>{console.log(e)})
 picture.src = `${baseURL}${pokemonNumber}.png`;
 picture.classList.add("pic");
 div.prepend(picture);
@@ -152,6 +159,40 @@ button[2].addEventListener('click', function(){
             updateAttack.href = `https://www.pokepedia.fr/${attack}`;
             updateAttack.classList.add("noDecoration")
             p[1].appendChild(updateAttack);
+            updateAttack.innerText = attack + ", ";
+        })
+        .catch(e =>{
+        console.log(e)
+        })
+    })
+    .catch(e =>{
+        console.log(e)
+    })
+});
+
+button[3].addEventListener('click', function(){
+    fetch(`https://pokeapi.co/api/v2/type/${type}`)
+    .then(res => {
+        
+        return res.json()
+    })
+    .then(data => {
+        const attackNumber = getRandomInt(data.moves.length)-1;
+        const attackName = data.moves[attackNumber].name;
+        fetch(`https://pokeapi.co/api/v2/move/${attackName}/`)
+        .then(res => {
+        
+        return res.json()
+        })
+        .then(data => {
+           
+            langueFr(data);
+            const attack = data.names[langue].name;;
+            const updateAttack = document.createElement("a");
+            updateAttack.target = "_blank";
+            updateAttack.href = `https://www.pokepedia.fr/${attack}`;
+            updateAttack.classList.add("noDecoration")
+            p[2].appendChild(updateAttack);
             updateAttack.innerText = attack + ", ";
         })
         .catch(e =>{
