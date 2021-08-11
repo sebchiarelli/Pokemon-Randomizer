@@ -43,8 +43,14 @@ div.prepend(createA);
 fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
 .then(res => {return res.json()})
 .then(data => {
-    type1 = data.types[0].type.name;
-    type2 = data.types[1].type.name;
+    if(data.types.length === 2){
+        type1 = data.types[0].type.name;
+        type2 = data.types[1].type.name;
+    }
+    else{
+        type1 = data.types[0].type.name;
+        type2 = data.types[0].type.name;
+    }
 })
 .catch(e =>{console.log(e)})
 picture.src = `${baseURL}${pokemonNumber}.png`;
@@ -100,7 +106,7 @@ button[1].addEventListener('click', function(){
     })
     .then(data => {
         
-        let talentNumber = getRandomInt(4)-1;
+        let talentNumber = getRandomInt(data.abilities.length)-1;
         
         do{
             if(data.abilities[talentNumber]);
