@@ -1,9 +1,18 @@
 body{
-    background-color: lightgreen;
+    margin: 0;
+
 }
 .noDecoration{
     color: rgb(109, 2, 109);
     text-decoration: none;
+}
+
+.container{
+    padding: 10px;
+    background: #85FFBD;
+    background: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+    background-repeat: no-repeat;
+
 }
 
 /*.pic{
